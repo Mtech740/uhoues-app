@@ -1,14 +1,27 @@
+import sys
+import subprocess
+import pkg_resources
+
+# Ensure all required packages are installed
+required = {'streamlit', 'pandas', 'Pillow'}
+installed = {pkg.key for pkg in pkg_resources.working_set}
+missing = required - installed
+
+if missing:
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+# Now import everything
 import streamlit as st
 import pandas as pd
 import json
 import datetime
 import os
-from PIL import Image
 import hashlib
 import uuid
 import base64
 from pathlib import Path
 import re
+from PIL import Image
 
 # App Configuration
 st.set_page_config(
@@ -111,7 +124,7 @@ def verify_owner_identity(owner_id, document_images):
     
     st.session_state.verified_owners[owner_id] = {
         'verification_id': verification_id,
-        'verified': False,  # Start as unverified until admin approves
+        'verified': False,
         'verification_date': datetime.datetime.now().isoformat(),
         'documents': doc_paths,
         'status': 'pending_review'
@@ -151,7 +164,7 @@ def create_pending_listing(owner_id, listing_data, images):
     }
     
     # Save images
-    for i, img in enumerate(images[:5]):  # Limit to 5 images
+    for i, img in enumerate(images[:5]):
         if img:
             img_path = IMAGES_DIR / f"{listing_id}_{i}.jpg"
             try:
@@ -824,7 +837,7 @@ elif menu == "👤 My Account":
                 
                 # Listings table
                 st.subheader("My Listings")
-                for listing in user_listings[:5]:  # Show first 5
+                for listing in user_listings[:5]:
                     status_icon = "✅" if listing['status'] == 'active' else "⏳" if listing['status'] == 'awaiting_activation' else "💰" if listing['status'] == 'pending_payment' else "❌"
                     st.write(f"{status_icon} **{listing['title']}** - K{listing['price']} - {listing['status'].replace('_', ' ').title()}")
                 
