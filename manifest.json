@@ -1,0 +1,21 @@
+{
+  "name": "Uhoues Property",
+  "short_name": "Uhoues",
+  "description": "Direct owner property listings in Zambia - No agents, K250 fee",
+  "start_url": "https://uhoues.streamlit.app/",
+  "display": "standalone",
+  "background_color": "#0d6efd",
+  "theme_color": "#0d6efd",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/color/192/000000/home--v1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://img.icons8.com/color/512/000000/home--v1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
