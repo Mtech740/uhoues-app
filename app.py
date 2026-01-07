@@ -1,4 +1,60 @@
+# PWA Setup - DO NOT MODIFY
 import streamlit as st
+
+st.markdown("""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0d6efd">
+    <meta name="description" content="Uhoues - Direct owner property listings in Zambia. No agents, K250 fee only.">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/96/000000/home--v1.png">
+    <title>Uhoues Property</title>
+    
+    <!-- PWA capabilities -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Uhoues">
+    
+    <!-- iOS icons -->
+    <link rel="apple-touch-icon" href="https://img.icons8.com/color/180/000000/home--v1.png">
+    
+    <!-- Microsoft tiles -->
+    <meta name="msapplication-TileColor" content="#0d6efd">
+    <meta name="msapplication-TileImage" content="https://img.icons8.com/color/144/000000/home--v1.png">
+    
+    <!-- PWA install prompt -->
+    <script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/service-worker.js');
+        });
+    }
+    
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        // Show install button if you want
+    });
+    </script>
+    
+    <style>
+    @media (display-mode: standalone) {
+        /* Styles for when app is installed */
+        body {
+            background-color: #f8f9fa;
+        }
+    }
+    </style>
+</head>
+<body>
+""", unsafe_allow_html=True)
+
+# ==================== YOUR UHOUES APP STARTS HERE ====================
 import pandas as pd
 from PIL import Image
 import json
@@ -170,15 +226,24 @@ elif menu == "👤 My Account":
         if payment_proof and st.button("Submit Proof"):
             st.success("Payment proof submitted! We'll verify within 24 hours.")
 
-# Footer
+# Footer - UPDATED TO 2026
 st.markdown("---")
 st.markdown(
     """
     <div style='text-align: center; color: #666;'>
-        <p>🏠 <strong>Uhoues</strong> &copy; 2024 • Direct Owner Property Listings</p>
+        <p>🏠 <strong>Uhoues</strong> &copy; 2026 • Direct Owner Property Listings</p>
         <p>📍 Zambian Owned • K250 Listing Fee • Payment via Mobile Money</p>
         <p>📞 Support: +260 76 993 9546</p>
+        <p style='font-size: 0.8em; margin-top: 10px;'>
+            <span style='color: #0d6efd;'>📱 Add to Home Screen for app experience</span>
+        </p>
     </div>
     """,
     unsafe_allow_html=True
-              )
+)
+
+# ==================== PWA CLOSING TAGS ====================
+st.markdown("""
+</body>
+</html>
+""", unsafe_allow_html=True)
